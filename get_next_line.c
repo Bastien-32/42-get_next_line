@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:04:01 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/21 16:43:10 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:58:56 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (dest);
 }
 
-char	*search_bsn_and_stash(int fd, char *content_buffer)
+char	*search_bsn_and_stash(int fd)
 {
 	ssize_t		bytes_read;
 	char		buffer[BUFFER_SIZE + 1];
@@ -153,16 +153,16 @@ char	*search_bsn_and_stash(int fd, char *content_buffer)
 char	*get_next_line(int fd)
 {
 	static char	*content_buffer;
-	//char		*line_return;
+	char		*line_return;
 
 	if (fd < 0 || BUFFER_SIZE == 0)
 		return (NULL);
-	content_buffer = search_bsn_and_stash(fd, content_buffer);
+	content_buffer = search_bsn_and_stash(fd);
 	if (!content_buffer)
 		return (NULL);
-	line = Ft(content_buffer)
+	line = Ft(content_buffer) mettre dans la fct la boucle while pour retourner la phrase 
 	stock le apres \n
-	return (content_buffer);
+	return (line);
 }
 
 #include <stdio.h>
