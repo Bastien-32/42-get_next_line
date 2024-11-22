@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:04:01 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/21 16:58:56 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:57:41 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	dst[i] = '\0';
 	return (lensrc);
 }
-
-/*
-char	*ft_init_buffer(char *content_buffer, ssize_t bytes_read)
-{
-	if (bytes_read <= 0)
-	{
-		if (content_buffer)
-		{
-			free(content_buffer);
-			content_buffer = NULL;
-		}
-		return (NULL);
-	}
-	return(content_buffer);
-}*/
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -129,10 +114,6 @@ char	*search_bsn_and_stash(int fd)
 	ssize_t		bytes_read;
 	char		buffer[BUFFER_SIZE + 1];
 	char		*str;
-	char		*line;
-	int			len;
-
-	len = 0;
 	
 	while (bytes_read > 0 || ft_strchr(buffer, '\n') == NULL)
 	{
@@ -142,12 +123,39 @@ char	*search_bsn_and_stash(int fd)
 		buffer[bytes_read] = '\0';
 		str = ft_strjoin(str, buffer);
 	}
-/*		while (str[len] != '\n')
-			len++;
-		line = ft_substr(str, 0, len);
-	}
-	free(str);*/
 	return (str);
+}
+
+char	*ft_write_line(char *str)
+{
+	int		len;
+	char	*dest;
+
+	len = 0;
+	while (str[len] && str[len] != '\n')
+		len++;
+	dest = ft_substr(str, 0, len);
+	if (str[len] == '\n')
+		dest[len + 1] = '\n';
+	free(str);
+	return (dest);
+}
+
+char	*ft_after_bsn(char *str)
+{
+	int		len;
+	char	*dest;
+	int		i;
+
+	len = 0;
+	i = 0;
+	while (str[len] != '\n')
+		len++;
+	while (str[len + i + 1])
+		i++;
+	dest = ft_substr(str, len + 1, i);
+	free(str);
+	return (dest);
 }
 
 char	*get_next_line(int fd)
@@ -160,9 +168,9 @@ char	*get_next_line(int fd)
 	content_buffer = search_bsn_and_stash(fd);
 	if (!content_buffer)
 		return (NULL);
-	line = Ft(content_buffer) mettre dans la fct la boucle while pour retourner la phrase 
-	stock le apres \n
-	return (line);
+	line_return = ft_write_line(content_buffer);// mettre dans la fct la boucle while (en commentaire dans search_bsn_and_stash) pour retourner la phrase 
+	content_buffer = ft_after_bsn(content_buffer);//stocker le contenu apres \n dans content_buffer
+	return (line_return);
 }
 
 #include <stdio.h>
