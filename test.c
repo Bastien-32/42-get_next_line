@@ -10,65 +10,76 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if ((char)c == '\0')
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
 	char	*dest;
 
-	i = 0;
+	i = -1;
 	j = 0;
+	if (!s1)
+	{
+		s1 = malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
 	dest = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!dest)
-		return (NULL);
-	while (s1[i])
-	{
+		return (free(s1), NULL);
+	while (s1[++i])
 		dest[i] = s1[i];
-		i++;
-	}
 	while (s2[j])
 	{
 		dest[i + j] = s2[j];
 		j++;
 	}
 	dest[i + j] = '\0';
-	free((char *)s1);
-	return (dest);
+	return (free(s1), dest);
 }
 
-char	*search_bsn_and_stash(int fd)
+int	bn_in_str(char *str, char bn)
 {
-	ssize_t		bytes_read;
-	char		buffer[BUFFER_SIZE + 1];
-	char		*str;
+	int	i;
 
-	while (bytes_read > 0 && !ft_strchr(buffer, '\n'))
+	i = 0;
+	if (str == NULL)
+		return (-1);
+	while (str[i])
+	{
+		if (str[i] == bn)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+char	*search_bsn_and_stash(int fd, char *str)
+{
+	int		bytes_read;
+	char	*buffer;
+
+	buffer = NULL;
+	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (buffer == NULL)
+	{
+		if (str)
+			free(str);
+		return (NULL);
+	}
+	bytes_read = 1;
+	while (bytes_read != 0 && bn_in_str(str, '\n') == -1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
-			return (NULL);
+		{
+			if (str)
+				free(str);
+			return (free(buffer), NULL);
+		}
 		buffer[bytes_read] = '\0';
 		str = ft_strjoin(str, buffer);
-		if (!str)
-			return (NULL);
 	}
-	return (str);
+	return (free(buffer), str);
 }
 
 #include <stdio.h>
@@ -76,14 +87,14 @@ char	*search_bsn_and_stash(int fd)
 
 int main(void)
 {
-	int fd1;
-	char	*dest;
+	static char	*str;
+	int			fd1;
 	
 	fd1 = open("fd.txt", O_RDONLY);
 	if (fd1 < 0)
 		return (write(1, "error", 1));
-	dest = search_bsn_and_stash(fd1);
-	printf("%s", dest);
-	free(dest);
+	str = search_bsn_and_stash(fd1, str);
+	printf("%s", str);
+	free(str);
 	close(fd1);
 }

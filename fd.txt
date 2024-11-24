@@ -6,7 +6,7 @@ llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
 o
 
 
-si buffersize = 3
+si buffersize = 9
 strchr 
 si je ne trouve pas le \n comment stocker les 3premiers caracteres ?
 
