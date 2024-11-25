@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:25:24 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/25 16:52:30 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:37:27 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ char	*search_bsn_and_stash(int fd, char *str)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
-			if (str)
-				free(str);
+			free(str);
 			return (free(buffer), NULL);
 		}
 		buffer[bytes_read] = '\0';
@@ -69,7 +68,7 @@ char	*stash_after_bsn(char *str, int i)
 {
 	char	*stash;
 
-	if (!str[0] || i == -1)
+	if (i == -1)
 		return (free(str), NULL);
 	stash = ft_substr(str, i + 1, ft_strlen(str));
 	free(str);
