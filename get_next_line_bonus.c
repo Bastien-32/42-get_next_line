@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 10:13:49 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/25 16:49:56 by badal-la         ###   ########.fr       */
+/*   Created: 2024/11/25 13:25:24 by badal-la          #+#    #+#             */
+/*   Updated: 2024/11/25 16:52:30 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	pos_bsn_in_str(char *str, char bsn)
 {
@@ -65,7 +65,7 @@ char	*write_line(char *str, int i)
 	return (line);
 }
 
-char	*stash_content_after_bsn(char *str, int i)
+char	*stash_after_bsn(char *str, int i)
 {
 	char	*stash;
 
@@ -78,36 +78,44 @@ char	*stash_content_after_bsn(char *str, int i)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[10000];
 	char		*line;
 	int			i;
 
-	str = search_bsn_and_stash(fd, str);
-	if (!str)
+	str[fd] = search_bsn_and_stash(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	i = pos_bsn_in_str(str, '\n');
-	line = write_line(str, i);
-	str = stash_content_after_bsn(str, i);
+	i = pos_bsn_in_str(str[fd], '\n');
+	line = write_line(str[fd], i);
+	str[fd] = stash_after_bsn(str[fd], i);
 	return (line);
 }
-
 /*
 #include <stdio.h>
 #include <fcntl.h>
 
 int main(void)
 {
-	static char	*str;
-	int			fd1;
-	
-	fd1 = open("fd.txt", O_RDONLY);
-	if (fd1 < 0)
-		return (write(1, "error", 1));
-	str = get_next_line(fd1);
-	printf("%s", str);
-	str = get_next_line(fd1);
-	printf("%s", str);
-	free(str);
+	int	fd1;
+	int fd2;
+	char	*line;
+
+	fd1 = open("fd1.txt", O_RDONLY);
+	line = get_next_line(fd1);
+	printf("%s", line);
+	free(line);
+	fd2 = open("fd2.txt", O_RDONLY);
+	line = get_next_line(fd2);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd1);
+	printf("%s", line);
+	line = get_next_line(fd2);
+	printf("%s", line);
+	line = get_next_line(fd1);
+	printf("%s", line);
 	close(fd1);
+	close(fd2);
+	free(line);
 }
 */
