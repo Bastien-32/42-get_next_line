@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:02:42 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/27 15:56:44 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:15:00 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*stash_after_bsn(char *str)
 	while (str[i] && str[i] != '\n')
 		i++;
 	line = ft_substr(str, i + 1, ft_strlen(str));
-	if (line[0] == '\0')
+	if (!line[0])
 	{
 		free(str);
 		return (free(line), NULL);

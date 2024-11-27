@@ -6,11 +6,11 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:02:42 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/27 16:06:25 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:22:44 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*search_bsn_and_stash(int fd, char *str)
 {
@@ -63,7 +63,7 @@ char	*stash_after_bsn(char *str)
 	while (str[i] && str[i] != '\n')
 		i++;
 	line = ft_substr(str, i + 1, ft_strlen(str));
-	if (line[0] == '\0')
+	if (!line[0])
 	{
 		free(str);
 		return (free(line), NULL);
@@ -85,7 +85,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*
+
 #include <stdio.h>
 
 int main(void)
@@ -114,4 +114,3 @@ int main(void)
 	close(fd2);
 	free(line);
 }
-*/

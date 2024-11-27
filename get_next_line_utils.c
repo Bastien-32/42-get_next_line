@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:39:54 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/27 15:57:58 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:09:47 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char	*ft_substr(char *str, int start, size_t len)
 	if (len > ft_strlen(str) - start)
 		len = ft_strlen(str) - start;
 	dest = malloc((len + 1) * sizeof(char));
+	if (dest == NULL)
+		return (NULL);
 	while (str[start + i] && i < len)
 	{
 		dest[i] = str[start + i];
