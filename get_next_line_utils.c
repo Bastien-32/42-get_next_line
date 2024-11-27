@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:39:54 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/25 16:44:44 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:57:58 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,52 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (s == NULL)
+		return (NULL);
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	char	*dest;
 
-	i = -1;
-	j = 0;
 	if (!s1)
 	{
 		s1 = malloc(1 * sizeof(char));
 		s1[0] = '\0';
 	}
-	dest = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (dest == NULL)
+	if (!s1 || !s2)
 		return (NULL);
+	dest = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!dest)
+		return (free(s1), NULL);
+	i = -1;
+	j = 0;
 	while (s1[++i])
 		dest[i] = s1[i];
 	while (s2[j])
@@ -46,30 +68,50 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	dest[i + j] = '\0';
-	free(s1);
-	return (dest);
+	return (free(s1), dest);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *str, int start, size_t len)
 {
-	size_t	i;
-	char	*dest;
+	char		*dest;
+	size_t		i;
 
 	i = 0;
-	if (!s)
+	if (!str)
 		return (NULL);
-	if ((size_t)start >= ft_strlen(s))
-		len = 0;
-	if (len > ft_strlen(s) || (len > ft_strlen(s) - start))
-		len = ft_strlen(s) - start;
-	dest = (char *)malloc((len + 1) * sizeof(char));
-	if (dest == NULL)
-		return (NULL);
-	while (((unsigned char *)s)[start + i] && i < len)
+	if ((size_t)start >= len)
 	{
-		dest[i] = ((unsigned char *)s)[start + i];
+		dest = malloc(sizeof(char));
+		dest[0] = '\0';
+		return (dest);
+	}
+	if (len > ft_strlen(str) - start)
+		len = ft_strlen(str) - start;
+	dest = malloc((len + 1) * sizeof(char));
+	while (str[start + i] && i < len)
+	{
+		dest[i] = str[start + i];
 		i++;
 	}
 	dest[i] = '\0';
+	return (dest);
+}
+
+void	*calloc(size_t nmemb, size_t size)
+{
+	char		*dest;
+	size_t		i;
+	size_t		len;
+
+	i = 0;
+	len = nmemb * size;
+	dest = malloc((len + 1) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	while (i < len)
+	{
+		dest[i] = '\0';
+		i++;
+	}
 	return (dest);
 }

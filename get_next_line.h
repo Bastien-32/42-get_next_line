@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:21:44 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/25 14:27:46 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:56:19 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-int		pos_bsn_in_str(char *str, char bsn);
 char	*search_bsn_and_stash(int fd, char *str);
-char	*write_line(char *str, int i);
-char	*stash_after_bsn(char *str, int i);
+char	*write_line(char *str);
+char	*stash_after_bsn(char *str);
 char	*get_next_line(int fd);
 
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char *str, int start, size_t len);
+char	*ft_strchr(const char *s, int c);
+void	*calloc(size_t nmemb, size_t size);
 
 #endif
