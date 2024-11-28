@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:02:42 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/27 17:22:44 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:26:11 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*search_bsn_and_stash(int fd, char *str)
 	char	*buffer;
 	int		bytes_read;
 
-	buffer = calloc((BUFFER_SIZE + 1), sizeof(char));
+	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	bytes_read = 1;
 	while (bytes_read != 0 && ft_strchr(str, '\n') == NULL)
 	{
@@ -85,7 +85,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-
+/*
 #include <stdio.h>
 
 int main(void)
@@ -113,4 +113,4 @@ int main(void)
 	close(fd1);
 	close(fd2);
 	free(line);
-}
+}*/

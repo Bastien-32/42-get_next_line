@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:39:54 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/27 17:09:47 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:25:17 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_substr(char *str, int start, size_t len)
 	return (dest);
 }
 
-void	*calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	char		*dest;
 	size_t		i;

@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:21:44 by badal-la          #+#    #+#             */
-/*   Updated: 2024/11/27 17:18:57 by badal-la         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:25:58 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *str, int start, size_t len);
 char	*ft_strchr(const char *s, int c);
-void	*calloc(size_t nmemb, size_t size);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif
